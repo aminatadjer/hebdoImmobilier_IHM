@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_pro/carousel_pro.dart';
 
+import 'AccountPage.dart';
+import 'AnnoncesPage.dart';
+
 
 class HomePage extends StatefulWidget {
   @override
@@ -8,9 +11,30 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-
+  int currentIndex = 0;
   TextEditingController _searchController = TextEditingController();
   bool _isLoading = false;
+  Widget callPage(int current) {
+    switch (current) {
+      case 0:
+        return Annonces();
+        break;
+      case 1:
+        return null;
+        break;
+      case 2:
+        return null;
+        break;
+      case 3:
+        return null;
+        break;
+      case 4:
+        return DestinationView();
+        break;
+      default:
+        return null;
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,8 +73,9 @@ class _HomePageState extends State<HomePage> {
           })
         ],
       ),
-
-      drawer: new Drawer(
+      drawer: Container(
+        width: 240,
+        child: new Drawer(
         child: new ListView(
           children: <Widget>[
             //     header
@@ -58,7 +83,7 @@ class _HomePageState extends State<HomePage> {
               currentAccountPicture: GestureDetector(
                 child: new CircleAvatar(
                   backgroundColor: Colors.grey,
-                  backgroundImage : new AssetImage('asstes/images/profile.jpg') ,
+                  backgroundImage : new AssetImage('assets/images/profile.jpg') ,
                 ),
               ),
               decoration: new BoxDecoration(
@@ -98,14 +123,15 @@ class _HomePageState extends State<HomePage> {
             InkWell(
               onTap: (){},
               child: ListTile(
-                title: Text('Settigns'),
+                title: Text('Settigns',
+                 ),
                 leading: Icon(Icons.settings,color: Colors.blue,),
               ),
             ),
             InkWell(
               onTap: (){},
               child: ListTile(
-                title: Text('About'),
+                title: Text('A propos '),
                 leading: Icon(Icons.info,color: Colors.blue,),
               ),
             ),
@@ -114,125 +140,65 @@ class _HomePageState extends State<HomePage> {
 
               },
               child: ListTile(
-                title: Text('Se déconnecter'),
-                leading: Icon(Icons.account_box,color: Colors.grey,),
+                title: Text('Se déconnecter',
+                style: TextStyle(color: Colors.grey),),
+                leading: Icon(Icons.keyboard_backspace,color: Colors.grey,),
               ),
             ),
           ],
         ),
+      )),
+      body: Container(
+        child: callPage(currentIndex),
       ),
-
-      body: new ListView(
-        children: <Widget>[
-
-          //new Padding(padding: const EdgeInsets.all(8.0),
-          //child: new Text('Categories'),),
-          // Horizontal List View Begins here
-          // HorizontalList(),
-          /*Row(
-            children: <Widget>[
-              new Padding(padding: const EdgeInsets.all(14.0),
-                  child: Container(
-                    alignment: Alignment.centerLeft,
-                    child: new Padding(padding: const EdgeInsets.all(20.0),
-                      child: new Text('Annonces ........'),),
-                  )),
-            ],
-          ),*/
-          // grid view
-          Container(
-            height: 320.0,
-            //child:
+      bottomNavigationBar: BottomNavigationBar(
+        unselectedItemColor: Color(0xFF919191),
+        type: BottomNavigationBarType.fixed,
+        currentIndex: currentIndex,
+        fixedColor: Color(0xFF4668D9),
+        onTap: (value) {
+          currentIndex = value;
+          setState(() {});
+        },
+        items: [
+          BottomNavigationBarItem(
+              icon: Icon(
+                Icons.home,
+                size: 33.0,
+              ),
+              title: Container(
+                height: 0.0,
+              )),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.border_all, size: 30.0,),
+              title: Container(
+                height: 0.0,
+              ),
           ),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.view_list, size: 33.0,),
+              title: Container(
+                height: 0.0,
+              )),
+          BottomNavigationBarItem(
+              icon: Icon(
+                Icons.bookmark,
+                size: 33.0,
+              ),
+              title: Container(
+                height: 0.0,
+              )),
+          BottomNavigationBarItem(
+              icon: Icon(
+                Icons.person,
+                size: 33.0,
+              ),
+              title: Container(
+                height: 0.0,
+              )),
         ],
       ),
-      bottomNavigationBar: bottomNavigationBar(),
     );
-  }
 
-
-}
-
-
-class bottomNavigationBar extends StatefulWidget {
-  @override
-  _bottomNavigationBarState createState() => _bottomNavigationBarState();
-}
-
-class _bottomNavigationBarState extends State<bottomNavigationBar> {
-  int currentIndex = 0;
-  /// Set a type current number a layout class
-  Widget callPage(int current) {
-    switch (current) {
-      case 0:
-        return null;
-        break;
-      case 1:
-        return null;
-        break;
-      case 2:
-        return null;
-        break;
-      case 3:
-        return null;
-        break;
-      default:
-        return null;
-    }
-  }
-
-  /// Build BottomNavigationBar Widget
-  @override
-  Widget build(BuildContext context) {
-
-    return  Scaffold(
-        body: callPage(currentIndex),
-        bottomNavigationBar: Theme(
-            data: Theme.of(context).copyWith(
-                canvasColor: Colors.white,
-                textTheme: Theme.of(context).textTheme.copyWith(
-                    caption: TextStyle(color: Colors.black26.withOpacity(0.15)))),
-            child: BottomNavigationBar(
-              type: BottomNavigationBarType.fixed,
-              currentIndex: currentIndex,
-              fixedColor: Color(0xFF6991C7),
-              onTap: (value) {
-                currentIndex = value;
-                setState(() {});
-              },
-              items: [
-                BottomNavigationBarItem(
-                    icon: Icon(
-                      Icons.home,
-                      size: 23.0,
-                    ),
-                    title: Text(
-                      'home',
-                      style: TextStyle(fontFamily: "Berlin", letterSpacing: 0.5),
-                    )),
-                BottomNavigationBarItem(
-                    icon: Icon(Icons.shop),
-                    title: Text(
-                      'brand',
-                      style: TextStyle(fontFamily: "Berlin", letterSpacing: 0.5),
-                    )),
-                BottomNavigationBarItem(
-                    icon: Icon(Icons.shopping_cart),
-                    title: Text(
-                        'Cart',
-                      style: TextStyle(fontFamily: "Berlin", letterSpacing: 0.5),
-                    )),
-                BottomNavigationBarItem(
-                    icon: Icon(
-                      Icons.person,
-                      size: 24.0,
-                    ),
-                    title: Text(
-                     'Account',
-                      style: TextStyle(fontFamily: "Berlin", letterSpacing: 0.5),
-                    )),
-              ],
-            )),
-      );
   }
 }
