@@ -21,7 +21,7 @@ List<GridItem> gridItemArray = [
   GridItem(
     id: "1",
     img: "assets/imgItem/fashion1.jpg",
-    title: "Casque !",
+    title: "Casqueeeee !",
     price: "\$ 10",
     itemSale: "932 Sale",
     rattingValue: "4.8",
@@ -41,7 +41,7 @@ List<GridItem> gridItemArray = [
   GridItem(
     id: "3",
     img: "assets/imgItem/beauty1.jpg",
-    title: "Casque",
+    title: "Casqueeeeee",
     price: "\$ 4",
     itemSale: "1422 Sale",
     rattingValue: "4.7",

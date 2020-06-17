@@ -10,7 +10,7 @@ class Annonces extends StatefulWidget {
 
 class _AnnoncesState extends State<Annonces> {
   TextEditingController _textController;
-
+  TextEditingController _searchController = TextEditingController();
   @override
   void initState() {
     super.initState();
@@ -18,10 +18,119 @@ class _AnnoncesState extends State<Annonces> {
       text: 'sample text: }',
     );
   }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        appBar: AppBar(
+          iconTheme: IconThemeData(color: Colors.blue),
+          elevation: 0.1,
+          backgroundColor: Colors.white,
+          title: Material(
+            borderRadius: BorderRadius.circular(10.0),
+            color: Colors.grey[100].withOpacity(0.2),
+            elevation: 0.0,
+            child: Padding(
+              padding: const EdgeInsets.all(0.0),
+              child: ListTile(
+                title: TextFormField(
+                  controller: _searchController,
+                  decoration: InputDecoration(
+                    hintText: "Search...",
+                    border: InputBorder.none,
+
+                  ),
+                  validator: (value){
+                    if(value.isEmpty){
+                      return "The search field cannot be empty";
+                    }
+                    return null;
+                  },
+                ),
+              ),
+            ),
+          ),
+          actions: <Widget>[
+            new IconButton(icon: Icon(Icons.search,color: Colors.blue,), onPressed: (){}),
+            new IconButton(icon: Icon(Icons.filter_list,color: Colors.blue,), onPressed: (){
+              //   Navigator.of(context).push(new MaterialPageRoute(builder: (context)=> new Cart()));
+            })
+          ],
+        ),
+        drawer: Container(
+            width: 240,
+            child: new Drawer(
+              child: new ListView(
+                children: <Widget>[
+                  //     header
+                  new UserAccountsDrawerHeader(accountName: Text('DOUAIDI Lydia'), accountEmail: Text('gl_douaidi@esi.dz'),
+                    currentAccountPicture: GestureDetector(
+                      child: new CircleAvatar(
+                        backgroundColor: Colors.grey,
+                        backgroundImage : new AssetImage('assets/images/profile.jpg') ,
+                      ),
+                    ),
+                    decoration: new BoxDecoration(
+                        color: Colors.deepOrange,
+                        image: DecorationImage(
+                          image:
+                          const AssetImage('assets/images/back_splash.jpg'),
+                          fit: BoxFit.cover,
+                          colorFilter: new ColorFilter.mode(
+                              Colors.black.withOpacity(0.98), BlendMode.dstIn),
+                        )
+                    ),
+                  ),
+                  //      body
+                  InkWell(
+                    onTap: (){},
+                    child: ListTile(
+                      title: Text('Acceuil'),
+                      leading: Icon(Icons.home,color: Colors.blue,),
+                    ),
+                  ),
+                  InkWell(
+                    onTap: (){},
+                    child: ListTile(
+                      title: Text('Mon compte'),
+                      leading: Icon(Icons.person,color: Colors.blue,),
+                    ),
+                  ),
+                  InkWell(
+                    onTap: (){},
+                    child: ListTile(
+                      title: Text('Journal'),
+                      leading: Icon(Icons.assignment,color: Colors.blue,),
+                    ),
+                  ),
+
+                  InkWell(
+                    onTap: (){},
+                    child: ListTile(
+                      title: Text('Settigns',
+                      ),
+                      leading: Icon(Icons.settings,color: Colors.blue,),
+                    ),
+                  ),
+                  InkWell(
+                    onTap: (){},
+                    child: ListTile(
+                      title: Text('A propos '),
+                      leading: Icon(Icons.info,color: Colors.blue,),
+                    ),
+                  ),
+                  InkWell(
+                    onTap: (){
+
+                    },
+                    child: ListTile(
+                      title: Text('Se déconnecter',
+                        style: TextStyle(color: Colors.grey),),
+                      leading: Icon(Icons.keyboard_backspace,color: Colors.grey,),
+                    ),
+                  ),
+                ],
+              ),
+            )),
       body: GridView.count(
           shrinkWrap: true,
           padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 20.0),
