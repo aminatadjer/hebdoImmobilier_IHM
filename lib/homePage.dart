@@ -4,6 +4,7 @@ import 'package:carousel_pro/carousel_pro.dart';
 import 'AccountPage.dart';
 import 'AnnoncesPage.dart';
 import 'ConservationAgence.dart';
+import 'VendeurAcheteur.dart';
 
 
 class HomePage extends StatefulWidget {
@@ -20,7 +21,7 @@ class _HomePageState extends State<HomePage> {
         return Annonces();
         break;
       case 1:
-        return null;
+        return VendeurAcheteur();
         break;
       case 2:
         return ExampleScreen();
@@ -60,7 +61,7 @@ class _HomePageState extends State<HomePage> {
                 height: 0.0,
               )),
           BottomNavigationBarItem(
-              icon: Icon(Icons.border_all, size: 30.0,),
+              icon: Icon(Icons.assessment, size: 30.0,),
               title: Container(
                 height: 0.0,
               ),

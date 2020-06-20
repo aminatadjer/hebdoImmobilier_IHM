@@ -54,6 +54,15 @@ flutter:
     - assets/images/profile.jpg
     - assets/images/back_splash.jpg
     - assets/icons/calculate-24px.svg
+    - assets/images/agenceA.jpg
+    - assets/images/agenceB.jpg
+    - assets/images/agenceC.jpg
+    - assets/images/agenceD.jpg
+    - assets/images/agenceE.jpg
+    - assets/images/agenceF.jpg
+    - assets/images/agenceH.jpg
+    - assets/images/agenceG.jpg
+    - assets/icons/filter.png
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
 

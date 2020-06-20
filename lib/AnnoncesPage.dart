@@ -35,7 +35,7 @@ class _AnnoncesState extends State<Annonces> {
                 title: TextFormField(
                   controller: _searchController,
                   decoration: InputDecoration(
-                    hintText: "Search...",
+                    hintText: "Chercher...",
                     border: InputBorder.none,
 
                   ),
