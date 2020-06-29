@@ -1,7 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app_ihm/test.dart';
 
 import 'ListItems/GridItemArray.dart';
+import 'AnnonceDetailPage.dart';
+import 'favoriteAnnonces.dart';
 
+class SaveWidget extends StatefulWidget{
+  @override
+  _SaveWidgetState createState()=> _SaveWidgetState();
+}
+class  _SaveWidgetState extends State<SaveWidget>{
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return null;
+  }
+  bool isSave = true;
+}
 class Annonces extends StatefulWidget {
 
   @override
@@ -9,6 +24,8 @@ class Annonces extends StatefulWidget {
 }
 
 class _AnnoncesState extends State<Annonces> {
+
+
   TextEditingController _textController;
   TextEditingController _searchController = TextEditingController();
   @override
@@ -51,7 +68,7 @@ class _AnnoncesState extends State<Annonces> {
           ),
           actions: <Widget>[
             new IconButton(icon: Icon(Icons.search,color: Colors.blue,), onPressed: (){}),
-            new IconButton(icon: Icon(Icons.filter_list,color: Colors.blue,), onPressed: (){
+            new IconButton(icon: Image.asset("assets/icons/filter.png"),iconSize: 65, onPressed: (){
               //   Navigator.of(context).push(new MaterialPageRoute(builder: (context)=> new Cart()));
             })
           ],
@@ -133,10 +150,10 @@ class _AnnoncesState extends State<Annonces> {
             )),
       body: GridView.count(
           shrinkWrap: true,
-          padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 20.0),
-          crossAxisSpacing: 10.0,
+          padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
+          crossAxisSpacing: 17.0,
           mainAxisSpacing: 17.0,
-          childAspectRatio: 0.545,
+          childAspectRatio: 0.999,
           crossAxisCount: 1,
           primary: false,
           children: List.generate(
@@ -152,18 +169,26 @@ class _AnnoncesState extends State<Annonces> {
     super.dispose();
   }
 }
-/// ItemGrid in bottom item "Recomended" item
-class ItemGrid extends StatelessWidget {
-  /// Get data from HomeGridItem.....dart class
+class ItemGrid extends StatefulWidget {
   GridItem gridItem;
   ItemGrid(this.gridItem);
+  @override
+  _ItemGridState createState() => _ItemGridState(gridItem);
+}
+/// ItemGrid in bottom item "Recomended" item
+class _ItemGridState extends State<ItemGrid> {
+  /// Get data from HomeGridItem.....dart classman
+  GridItem gridItem;
+  _ItemGridState(this.gridItem);
+  bool _isSaved = false;
 
   @override
   Widget build(BuildContext context) {
     MediaQueryData mediaQueryData = MediaQuery.of(context);
     return InkWell(
       onTap: () {
-        Navigator.of(context).push(PageRouteBuilder(
+        print ("J'AI TAPEEEEEEEEEEEeee");
+        /*Navigator.of(context).push(PageRouteBuilder(
           //  pageBuilder: (_, __, ___) => new detailProduk(gridItem),
             transitionDuration: Duration(milliseconds: 900),
 
@@ -174,7 +199,11 @@ class ItemGrid extends StatelessWidget {
                 opacity: animation.value,
                 child: child,
               );
-            }));
+            }));*/
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context)=>DetailAnnoncePage(gridItem))
+        );
       },
       child: Container(
         decoration: BoxDecoration(
@@ -188,49 +217,36 @@ class ItemGrid extends StatelessWidget {
 //           offset: Offset(4.0, 10.0)
               )
             ]),
-        child: Wrap(
+        child: Stack(
+          children: [ Wrap(
           children: <Widget>[
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
-
                 /// Set Animation image to detailProduk layout
                 Hero(
-                  tag: "hero-grid-${gridItem.id}",
+                  tag: "hero-grid-${gridItem.id}",//image
                   child: Material(
                     child: InkWell(
-                      onTap: () {
-                        Navigator.of(context).push(PageRouteBuilder(
-                            opaque: false,
-                            pageBuilder: (BuildContext context, _, __) {
-                              return new Material(
-                                color: Colors.black54,
-                                child: Container(
-                                  padding: EdgeInsets.all(30.0),
-                                  child: InkWell(
-                                    child: Hero(
-                                        tag: "hero-grid-${gridItem.id}",
-                                        child: Image.asset(
-                                          gridItem.img,
-                                          width: 300.0,
-                                          height: 300.0,
-                                          alignment: Alignment.center,
-                                          fit: BoxFit.contain,
-                                        )),
-                                    onTap: () {
-                                      Navigator.pop(context);
-                                    },
-                                  ),
-                                ),
-                              );
-                            },
-                            transitionDuration: Duration(milliseconds: 500)));
-                      },
+                        onTap: () {
+                          Navigator.of(context).push(PageRouteBuilder(
+                              pageBuilder: (_, __, ___) => new DetailAnnoncePage(gridItem),
+                              transitionDuration: Duration(milliseconds: 900),
+
+                              /// Set animation Opacity in route to detailProduk layout
+                              transitionsBuilder:
+                                  (_, Animation<double> animation, __, Widget child) {
+                                return Opacity(
+                                  opacity: animation.value,
+                                  child: child,
+                                );
+                              }));
+                        },
                       child: Container(
                         height: mediaQueryData.size.height / 3.3,
-                        width: 200.0,
+                        width: 450.0,
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.only(
                                 topLeft: Radius.circular(7.0),
@@ -238,25 +254,56 @@ class ItemGrid extends StatelessWidget {
                             image: DecorationImage(
                                 image: AssetImage(gridItem.img),
                                 fit: BoxFit.cover)),
+                        child :
+                        Stack(
+                          children: [
+                            Positioned(
+                          right: 10.0,
+                          top: 10.0,
+                                child:  IconButton(
+                                    icon: (_isSaved ? Icon(Icons.bookmark,size: 39,) : Icon(Icons.bookmark_border,size: 39,)),
+                                    color: Colors.blue,
+                                    onPressed: () async {
+                                      setState(() {
+                                        _isSaved = true;
+                                      });
+                                     gridItemFavoriteArray.add(gridItem);
+                                    }
+                                ),
+                            )],
                       ),
+                      )
                     ),
                   ),
-                ),
-                Padding(padding: EdgeInsets.only(top: 7.0)),
+                ),//images
+                Padding(padding: EdgeInsets.only(top: 13.0)),
                 Padding(
                   padding: const EdgeInsets.only(left: 15.0, right: 15.0),
-                  child: Text(
-                    gridItem.title,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                        letterSpacing: 0.5,
-                        color: Colors.black54,
-                        fontFamily: "Sans",
-                        fontWeight: FontWeight.w500,
-                        fontSize: 13.0),
+                  child:
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Row(
+                        children: <Widget>[
+                          Text(
+                            gridItem.title,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(
+                                letterSpacing: 0.5,
+                                color: Colors.black54,
+                                fontFamily: "Sans",
+                                fontWeight: FontWeight.w500,
+                                fontSize: 20.0),
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
+
+
                 ),
-                Padding(padding: EdgeInsets.only(top: 1.0)),
+                Padding(padding: EdgeInsets.only(top: 20.0)),
                 Padding(
                   padding: const EdgeInsets.only(left: 15.0, right: 15.0),
                   child: Text(
@@ -264,12 +311,12 @@ class ItemGrid extends StatelessWidget {
                     style: TextStyle(
                         fontFamily: "Sans",
                         fontWeight: FontWeight.w500,
-                        fontSize: 14.0),
+                        fontSize: 16.0),
                   ),
                 ),
                 Padding(
                   padding:
-                  const EdgeInsets.only(left: 15.0, right: 15.0, top: 5.0),
+                  const EdgeInsets.only(left: 15.0, right: 15.0, top: 30.0),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -282,13 +329,8 @@ class ItemGrid extends StatelessWidget {
                                 fontFamily: "Sans",
                                 color: Colors.black26,
                                 fontWeight: FontWeight.w500,
-                                fontSize: 12.0),
+                                fontSize: 17.0),
                           ),
-                          Icon(
-                            Icons.star,
-                            color: Colors.yellow,
-                            size: 14.0,
-                          )
                         ],
                       ),
                       Text(
@@ -297,7 +339,7 @@ class ItemGrid extends StatelessWidget {
                             fontFamily: "Sans",
                             color: Colors.black26,
                             fontWeight: FontWeight.w500,
-                            fontSize: 12.0),
+                            fontSize: 17.0),
                       )
                     ],
                   ),
@@ -306,6 +348,29 @@ class ItemGrid extends StatelessWidget {
             ),
           ],
         ),
+          new Positioned(
+            right: 20.0,
+            top: 175.0,
+            child: Container(
+              child: new CircleAvatar(
+                child: new Icon(Icons.near_me,size: 25,color: Colors.blue,),
+                backgroundColor: Colors.white,
+              ),
+              width: 45.0,
+              height: 52.0,
+              padding: const EdgeInsets.all(2.0),
+              decoration: new BoxDecoration(
+                  shape: BoxShape.circle,
+                  boxShadow: [
+                    BoxShadow(
+                      color: Color(0xFF656565).withOpacity(0.9),
+                      blurRadius: 5.0,
+                    )]
+              ),
+            ),
+          ),
+          ],
+        )
       ),
     );
   }

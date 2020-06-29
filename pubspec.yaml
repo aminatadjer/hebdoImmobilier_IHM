@@ -63,6 +63,12 @@ flutter:
     - assets/images/agenceH.jpg
     - assets/images/agenceG.jpg
     - assets/icons/filter.png
+    - assets/imgItem/appartement.jpg
+    - assets/imgItem/appartement2.jpg
+    - assets/imgItem/logement.jpg
+    - assets/imgItem/studio.jpg
+    - assets/imgItem/studio2.jpg
+    - assets/imgItem/villa2.jpg
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
 

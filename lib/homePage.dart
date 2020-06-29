@@ -4,7 +4,9 @@ import 'package:carousel_pro/carousel_pro.dart';
 import 'AccountPage.dart';
 import 'AnnoncesPage.dart';
 import 'ConservationAgence.dart';
+import 'ListItems/GridItemArray.dart';
 import 'VendeurAcheteur.dart';
+import 'favoriteAnnonces.dart';
 
 
 class HomePage extends StatefulWidget {
@@ -27,7 +29,7 @@ class _HomePageState extends State<HomePage> {
         return ExampleScreen();
         break;
       case 3:
-        return null;
+        return favoritePage(gridItemFavoriteArray);
         break;
       case 4:
         return DestinationView();
