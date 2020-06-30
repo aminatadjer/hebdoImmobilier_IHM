@@ -30,6 +30,9 @@ dependencies:
   cupertino_icons: ^0.1.3
   adobe_xd: ^0.1.4
   carousel_pro: ^1.0.0
+  line_awesome_flutter: ^1.0.1
+  flutter_screenutil: ^1.0.2
+  animated_theme_switcher: ^1.0.5
 
 dev_dependencies:
   flutter_test:
@@ -69,6 +72,9 @@ flutter:
     - assets/imgItem/studio.jpg
     - assets/imgItem/studio2.jpg
     - assets/imgItem/villa2.jpg
+    - assets/images/profile.jpg
+    - assets/images/background.jpg
+    - assets/images/journal.png
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
 

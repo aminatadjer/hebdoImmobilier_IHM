@@ -2,43 +2,21 @@
 import 'package:flutter/material.dart';
 
 
-import 'AnnoncesPage.dart';
-import 'ConservationAgence.dart';
-import 'ListItems/GridItemArray.dart';
-import 'VendeurAcheteur.dart';
-import 'account/AccountPage.dart';
 
-
-class DetailAnnoncePage extends StatefulWidget {
-    final GridItem grid;
-    DetailAnnoncePage(this.grid);
+class AjoutAnnoncePage extends StatefulWidget {
+    
+    AjoutAnnoncePage();
   @override
-  _DetailAnnonceState createState() => _DetailAnnonceState(grid);
+  _AjoutAnnonceState createState() => _AjoutAnnonceState();
 }
 
-class _DetailAnnonceState extends State<DetailAnnoncePage> {
+class _AjoutAnnonceState extends State<AjoutAnnoncePage> {
   bool _isSaved = false;
-    final GridItem grid;
-    _DetailAnnonceState(this.grid) ;
+  _AjoutAnnonceState() ;
   int currentIndex = 0;
   bool _isLoading = false;
   Widget callPage(int current) {
     switch (current) {
-      case 0:
-        return Annonces();
-        break;
-      case 1:
-        return VendeurAcheteur();
-        break;
-      case 2:
-        return ExampleScreen();
-        break;
-      case 3:
-        return null;
-        break;
-      case 4:
-        return ProfileScreen();
-        break;
       default:
         return null;
     }
@@ -61,16 +39,16 @@ class _DetailAnnonceState extends State<DetailAnnoncePage> {
                 expandedHeight: 300.0,
                 flexibleSpace:  FlexibleSpaceBar(
                   title:  Text(
-                    grid.title+ "\n"+
-                    grid.rattingValue+ "\n"+
-                    grid.price,
+                    "hello"+ "\n"+
+                    "4444"+ "\n"+
+                    "7676273",
                     style: TextStyle(
                         fontFamily: "Sans",
                         color: Colors.white,
                         fontWeight: FontWeight.w500,
                         fontSize: 11.0),
                   ) ,
-                  background: Image.asset(this.grid.img),
+                  background: Image.asset("assets/images/profile.jpg"),
 
                 )
               ),
@@ -93,7 +71,7 @@ class _DetailAnnonceState extends State<DetailAnnoncePage> {
                 padding: const EdgeInsets.only(left: 20.0,top:10),
                   child:
                   Text(
-                    grid.description,
+                    'descriptionnnnnnnnnnnn',
                     style: TextStyle(
                         fontFamily: "Sans",
                         color: Colors.black26,
